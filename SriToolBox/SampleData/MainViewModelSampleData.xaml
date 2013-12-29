@@ -1,0 +1,13 @@
+﻿<local:MainViewModel 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SriToolBox" 
+    SampleProperty="Sample Text Property Value">
+    
+    <local:MainViewModel.Items>
+        <local:ItemViewModel ImagePath="design one" Name="Maecenas praesent accumsan bibendum" Description="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
+        <local:ItemViewModel ImagePath="design two" Name="Dictumst eleifend facilisi faucibus" Description="Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent"/>
+        <local:ItemViewModel ImagePath="design three" Name="Habitant inceptos interdum lobortis" Description="Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat"/>        
+    </local:MainViewModel.Items>
+    
+</local:MainViewModel>
