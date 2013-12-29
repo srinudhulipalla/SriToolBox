@@ -32,21 +32,22 @@
                     <TextBlock Height="40" HorizontalAlignment="Left" Margin="24,121,0,0" Name="textBlock2" Text="Rate of Interest (%)" VerticalAlignment="Top" Style="{StaticResource PhoneTextAccentStyle}" FontSize="24" />
                     <TextBlock Height="40" HorizontalAlignment="Left" Margin="24,225,0,0" Name="textBlock3" Text="Duration" VerticalAlignment="Top" Style="{StaticResource PhoneTextAccentStyle}" FontSize="24" />
                     <TextBlock Height="40" HorizontalAlignment="Left" Margin="24,329,0,0" Name="textBlock4" Text="Frequency" VerticalAlignment="Top" Style="{StaticResource PhoneTextAccentStyle}" FontSize="24" />
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,43,0,0" Name="textBox1" Text="" VerticalAlignment="Top" Width="223" />
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,147,0,0" Name="textBox2" Text="" VerticalAlignment="Top" Width="223" />
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,251,0,0" Name="textBox3" Text="" VerticalAlignment="Top" Width="126" />
-                    <Button Content="Calculate" Height="72" HorizontalAlignment="Left" Margin="98,451,0,0" Name="btnCalculte" VerticalAlignment="Top" Width="238" />
-                    <toolkit:ListPicker Height="500" HorizontalAlignment="Left" Margin="24,360,0,0" Name="listPicker1" VerticalAlignment="Top" Width="301" ListPickerMode="Normal" SelectedIndex="1" Visibility="Visible">
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,43,0,0" Name="txtAmount" Text="" VerticalAlignment="Top" Width="223" InputScope="Number" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,147,0,0" Name="txtInterest" Text="" VerticalAlignment="Top" Width="223" InputScope="Number" />
+                    <TextBox Height="72" HorizontalAlignment="Left" Margin="12,251,0,0" Name="txtDuration" Text="" VerticalAlignment="Top" Width="126" InputScope="Number" />
+                    <Button Content="Calculate" Height="72" HorizontalAlignment="Left" Margin="98,451,0,0" Name="btnCalculte" VerticalAlignment="Top" Width="238" Click="BtnCalculte_Click" />
+                    <toolkit:ListPicker Height="500" HorizontalAlignment="Left" Margin="24,360,0,0" Name="lstFrequency" VerticalAlignment="Top" Width="301" ListPickerMode="Normal" SelectedIndex="1" Visibility="Visible">
                         <toolkit:ListPickerItem Content="Monthly"/>
                         <toolkit:ListPickerItem Content="Quarterly"/>
                         <toolkit:ListPickerItem Content="Half Yearly"/>
                         <toolkit:ListPickerItem Content="Yearly (Simple Interest)"/>
                     </toolkit:ListPicker>
-                    <toolkit:ListPicker Height="150" HorizontalAlignment="Left" Margin="130,254,0,0" Name="listPicker2" VerticalAlignment="Top" Width="193" ListPickerMode="Full" SelectedIndex="1">
+                    <toolkit:ListPicker Height="150" HorizontalAlignment="Left" Margin="130,254,0,0" Name="lstDuration" VerticalAlignment="Top" Width="193" ListPickerMode="Full" SelectedIndex="1">
                         <toolkit:ListPickerItem Content="Day(s)"/>
                         <toolkit:ListPickerItem Content="Month(s)"/>
                         <toolkit:ListPickerItem Content="Year(s)"/>
                     </toolkit:ListPicker>
+                    
                 </Grid>
             </ScrollViewer>
         </StackPanel> 
@@ -56,8 +57,8 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="Images/ToolBox/Home.png" Text="Home" />
-            <shell:ApplicationBarIconButton IconUri="Images/ToolBox/Clear.png" Text="Clear" />
+            <shell:ApplicationBarIconButton IconUri="Images/ToolBox/Home.png" Text="Home" Click="IconHome_Click" />
+            <shell:ApplicationBarIconButton IconUri="Images/ToolBox/Clear.png" Text="Clear" Click="IconClear_Click" />
             <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Home"/>
                 <shell:ApplicationBarMenuItem Text="Clear"/>

@@ -70,6 +70,7 @@
     <Compile Include="ToolBox\CalcInterest.xaml.cs">
       <DependentUpon>CalcInterest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolBox\ToolBox.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
