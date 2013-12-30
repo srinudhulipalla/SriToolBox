@@ -26,12 +26,11 @@
 
             <!--Panorama item one-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="ToolBox" Orientation="Horizontal">
-                <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding ToolBox}">
+            <controls:PanoramaItem Header="Device" Orientation="Horizontal">                
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Device}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Name="ToolBox" Orientation="Horizontal" Margin="0,0,0,17" Tap="ToolBox_Tap">
+                            <StackPanel Name="Device" Orientation="Horizontal" Margin="0,0,0,17" Tap="Device_Tap">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
                                 <StackPanel Width="311">
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
@@ -44,27 +43,28 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="Others">
-                <!--Double line list with text wrapping-->
-                <!--<ListBox Margin="0,0,-12,0" ItemsSource="{Binding Settings}">
+            <controls:PanoramaItem Header="Finance">                
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Finance}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <StackPanel Name="Finance" Orientation="Horizontal" Margin="0,0,0,17" Tap="Finance_Tap">
+                                <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
+                                <StackPanel Width="311">
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>-->
+                </ListBox>
             </controls:PanoramaItem>
 
             <!--Panorama item three-->
-            <controls:PanoramaItem Header="Settings">
-                <!--Double line list with text wrapping-->                
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Settings}">
+            <controls:PanoramaItem Header="Others">                
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Others}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Width="432" Height="78" Tap="Settings_Tap">
+                            <StackPanel Margin="0,0,0,17" Orientation="Horizontal" Width="432" Height="78" Tap="Others_Tap">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
                                 <StackPanel Width="400">
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>

@@ -37,21 +37,24 @@ namespace SriToolBox
             }
         }
 
-        private void ToolBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void Device_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        { }
+
+        private void Finance_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             PanoramaElement = e.OriginalSource as FrameworkElement;
             ModelItem = PanoramaElement.DataContext as ItemViewModel;
 
             switch (ModelItem.ID)
             {
-                case 1: this.NavigationService.Navigate(new Uri("/ToolBox/CalcInterest.xaml", UriKind.Relative));
+                case 1: this.NavigationService.Navigate(new Uri("/Finance/CalcInterest.xaml", UriKind.Relative));
                     break;
                 case 2: MessageBox.Show("Calc Tax");
                     break;
             }     
         }
 
-        private void Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void Others_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             PanoramaElement = e.OriginalSource as FrameworkElement;
             ModelItem = PanoramaElement.DataContext as ItemViewModel;

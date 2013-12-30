@@ -67,10 +67,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolBox\CalcInterest.xaml.cs">
+    <Compile Include="Finance\CalcInterest.xaml.cs">
       <DependentUpon>CalcInterest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolBox\ToolBox.cs" />
+    <Compile Include="Finance\Finance.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
@@ -87,7 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="ToolBox\CalcInterest.xaml">
+    <Page Include="Finance\CalcInterest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,15 +104,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
-    <Resource Include="Images\Settings\About.png" />
-    <Resource Include="Images\Settings\Feedback.png" />
-    <Resource Include="Images\ToolBox\CalcInterest.png" />
-    <Resource Include="Images\ToolBox\CalcTax.png" />
-    <Content Include="Images\ToolBox\Clear.png" />
-    <Content Include="Images\ToolBox\Home.png" />
+    <Resource Include="Images\Others\About.png" />
+    <Resource Include="Images\Others\Feedback.png" />
+    <Resource Include="Images\Finance\CalcInterest.png" />
+    <Resource Include="Images\Finance\CalcTax.png" />
+    <Content Include="Images\AppBar\Clear.png" />
+    <Content Include="Images\AppBar\Home.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Device\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

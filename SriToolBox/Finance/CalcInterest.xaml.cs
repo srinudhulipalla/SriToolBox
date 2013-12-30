@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Text.RegularExpressions;
 
-namespace SriToolBox.ToolBox
+namespace SriToolBox.Finance
 {
     public partial class CalcInterest : PhoneApplicationPage
     {
@@ -80,7 +80,8 @@ namespace SriToolBox.ToolBox
         private void IconClear_Click(object sender, EventArgs e)
         {
             txtAmount.Text = txtInterest.Text = txtDuration.Text = string.Empty;
-            lstDuration.SelectedIndex = lstFrequency.SelectedIndex = 1;
+            lstDuration.SelectedIndex = 2;
+            lstFrequency.SelectedIndex = 1;
         }
 
         bool ValidData(ref string errorMsg)
