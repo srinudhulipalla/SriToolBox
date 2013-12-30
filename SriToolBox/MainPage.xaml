@@ -32,7 +32,7 @@
                         <DataTemplate>
                             <StackPanel Name="Device" Orientation="Horizontal" Margin="0,0,0,17" Tap="Device_Tap">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
-                                <StackPanel Width="311">
+                                <StackPanel>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}"/>
                                 </StackPanel>
@@ -49,7 +49,7 @@
                         <DataTemplate>
                             <StackPanel Name="Finance" Orientation="Horizontal" Margin="0,0,0,17" Tap="Finance_Tap">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
-                                <StackPanel Width="311">
+                                <StackPanel Width="350">
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}"/>
                                 </StackPanel>
@@ -66,7 +66,7 @@
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Orientation="Horizontal" Width="432" Height="78" Tap="Others_Tap">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
-                                <StackPanel Width="400">
+                                <StackPanel>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}"/>
                                 </StackPanel>

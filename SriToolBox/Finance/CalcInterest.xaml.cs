@@ -48,13 +48,13 @@ namespace SriToolBox.Finance
 
             switch (lstFrequency.SelectedIndex)
             {
-                case 0: Interest.Frequency = CompoundInterest.FrequencyValue.Monthly;
+                case 0: Interest.FrequencyMethod = CompoundInterest.FrequencyValue.Monthly;
                     break;
-                case 1: Interest.Frequency = CompoundInterest.FrequencyValue.Quarterly;
+                case 1: Interest.FrequencyMethod = CompoundInterest.FrequencyValue.Quarterly;
                     break;
-                case 2: Interest.Frequency = CompoundInterest.FrequencyValue.HalfYearly;
+                case 2: Interest.FrequencyMethod = CompoundInterest.FrequencyValue.HalfYearly;
                     break;
-                case 3: Interest.Frequency = CompoundInterest.FrequencyValue.Yearly;
+                case 3: Interest.FrequencyMethod = CompoundInterest.FrequencyValue.Yearly;
                     break;
             }
 

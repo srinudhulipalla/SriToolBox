@@ -65,11 +65,11 @@ namespace SriToolBox
         public void LoadData()
         {
             //Device data
-            this.Device.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "System Info", Description = "know about your device" });
-            this.Device.Add(new ItemViewModel() { ID = 2, ImagePath = "Images/Finance/CalcTax.png", Name = "Call History", Description = "check your call history" });             
-            this.Device.Add(new ItemViewModel() { ID = 3, ImagePath = "Images/Finance/CalcTax.png", Name = "Message History", Description = "see your messages history" });
-            this.Device.Add(new ItemViewModel() { ID = 4, ImagePath = "Images/Finance/CalcInterest.png", Name = "Multimedia", Description = "get details about your media" });
-            this.Device.Add(new ItemViewModel() { ID = 5, ImagePath = "Images/Finance/CalcTax.png", Name = "Data Usage", Description = "track data usage on your device" });
+            this.Device.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Device/SystemInfo.png", Name = "System Info", Description = "know about your device" });
+            this.Device.Add(new ItemViewModel() { ID = 2, ImagePath = "Images/Device/CallHistory.png", Name = "Call History", Description = "check your call history" });
+            this.Device.Add(new ItemViewModel() { ID = 3, ImagePath = "Images/Device/MessageHistory.png", Name = "Message History", Description = "see your messages history" });
+            this.Device.Add(new ItemViewModel() { ID = 4, ImagePath = "Images/Device/Multimedia.png", Name = "Multimedia", Description = "get details about your media" });
+            this.Device.Add(new ItemViewModel() { ID = 5, ImagePath = "Images/Device/DataUsage.png", Name = "Data Usage", Description = "track data usage on your device" });
 
             //Finance data
             this.Finance.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest which you get on principal amount" });

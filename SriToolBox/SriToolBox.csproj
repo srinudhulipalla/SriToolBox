@@ -110,11 +110,14 @@
     <Resource Include="Images\Finance\CalcTax.png" />
     <Content Include="Images\AppBar\Clear.png" />
     <Content Include="Images\AppBar\Home.png" />
+    <Resource Include="Images\Device\CallHistory.png" />
+    <Resource Include="Images\Device\DataUsage.png" />
+    <Resource Include="Images\Device\MessageHistory.png" />
+    <Resource Include="Images\Device\Multimedia.png" />
+    <Resource Include="Images\Device\SystemInfo.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Device\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

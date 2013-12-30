@@ -61,7 +61,7 @@ namespace SriToolBox.Finance
             set { _durationMethod = value; }
         }
 
-        public FrequencyValue Frequency
+        public FrequencyValue FrequencyMethod
         {
             get { return _frequency; }
             set { _frequency = value; }
