@@ -2,5 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
     <Deployment.Parts>
+      <!--<Capabilities>
+        <Capability Name="ID_CAP_IDENTITY_DEVICE"/>
+
+
+      </Capabilities>-->
     </Deployment.Parts>
+  
 </Deployment>

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Info;
 
 namespace SriToolBox
 {
@@ -38,7 +39,59 @@ namespace SriToolBox
         }
 
         private void Device_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        { }
+        {
+            PanoramaElement = e.OriginalSource as FrameworkElement;
+            ModelItem = PanoramaElement.DataContext as ItemViewModel;
+
+            switch (ModelItem.ID)
+            {
+                case 1:
+
+                    string name = "ApplicationCurrentMemoryUsage: " + DeviceStatus.ApplicationCurrentMemoryUsage + Environment.NewLine;
+                    name += "ApplicationMemoryUsageLimit: " + DeviceStatus.ApplicationMemoryUsageLimit + Environment.NewLine;
+                    name += "ApplicationPeakMemoryUsage: " + DeviceStatus.ApplicationPeakMemoryUsage + Environment.NewLine;
+                    name += "DeviceFirmwareVersion: " + DeviceStatus.DeviceFirmwareVersion + Environment.NewLine;
+                    name += "DeviceHardwareVersion: " + DeviceStatus.DeviceHardwareVersion + Environment.NewLine;
+                    name += "DeviceManufacturer: " + DeviceStatus.DeviceManufacturer + Environment.NewLine;
+                    name += "DeviceName: " + DeviceStatus.DeviceName + Environment.NewLine;
+                    name += "DeviceTotalMemory: " + DeviceStatus.DeviceTotalMemory + Environment.NewLine;
+                    name += "IsKeyboardDeployed: " + DeviceStatus.IsKeyboardDeployed + Environment.NewLine;
+                    name += "IsKeyboardPresent: " + DeviceStatus.IsKeyboardPresent + Environment.NewLine;
+                    name += "PowerSource: " + DeviceStatus.PowerSource + Environment.NewLine;
+                    name += Environment.NewLine;
+                    name += "ApplicationCurrentMemoryUsage: " + DeviceExtendedProperties.GetValue("ApplicationCurrentMemoryUsage") + Environment.NewLine;
+                    name += "ApplicationPeakMemoryUsage: " + DeviceExtendedProperties.GetValue("ApplicationPeakMemoryUsage") + Environment.NewLine;
+                    name += "ApplicationWorkingSetLimit: " + DeviceExtendedProperties.GetValue("ApplicationWorkingSetLimit") + Environment.NewLine;
+                    name += "DeviceFirmwareVersion: " + DeviceExtendedProperties.GetValue("DeviceFirmwareVersion") + Environment.NewLine;
+                    name += "DeviceHardwareVersion: " + DeviceExtendedProperties.GetValue("DeviceHardwareVersion") + Environment.NewLine;
+                    name += "DeviceManufacturer: " + DeviceExtendedProperties.GetValue("DeviceManufacturer") + Environment.NewLine;
+                    name += "DeviceName: " + DeviceExtendedProperties.GetValue("DeviceName") + Environment.NewLine;
+                    name += "DeviceTotalMemory: " + DeviceExtendedProperties.GetValue("DeviceTotalMemory") + Environment.NewLine;
+                    name += "DeviceUniqueId: " + Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) + Environment.NewLine;
+                    name += "OS Version: " + Environment.OSVersion + Environment.NewLine;
+                    name += ".NEt Version: " + Environment.Version + Environment.NewLine;       
+                    //name += "IsApplicationPreinstalled: " + DeviceExtendedProperties.GetValue("IsApplicationPreinstalled");
+                    //name += "OriginalMobileOperatorName: " + DeviceExtendedProperties.GetValue("OriginalMobileOperatorName");
+                    //name += "PhysicalScreenResolution: " + DeviceExtendedProperties.GetValue("PhysicalScreenResolution");
+                    //name += "RawDpiX: " + DeviceExtendedProperties.GetValue("RawDpiX");
+                    //name += "RawDpiY: " + DeviceExtendedProperties.GetValue("RawDpiY");
+                    
+                    //DispatcherTimer
+
+                    
+
+                    MessageBox.Show(name);
+
+    //                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
+    //foreach (ManagementObject os in searcher.Get())
+    //{
+    //    result = os["Caption"].ToString();
+    //    break;
+    //}
+
+                    break;
+            }
+        }
 
         private void Finance_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -66,6 +119,24 @@ namespace SriToolBox
                 case 2: MessageBox.Show("Feedback");
                     break;
             }            
+        }
+
+        void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(() => {
+                if (DeviceStatus.PowerSource.ToString() != "External")
+                {
+                    MessageBox.Show("Device is disconnected from an external power source.");
+                }
+            });
+        }
+
+        void DeviceDisconnectedFromPower()
+        {
+            if (DeviceStatus.PowerSource.ToString() != "External")
+            {
+                MessageBox.Show("Device is disconnected from an external power source.");
+            }
         }
 
         
