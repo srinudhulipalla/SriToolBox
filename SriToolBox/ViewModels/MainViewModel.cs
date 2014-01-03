@@ -20,17 +20,17 @@ namespace SriToolBox
     {
         public MainViewModel()
         {
-            this.Device = new ObservableCollection<ItemViewModel>();
-            this.Finance = new ObservableCollection<ItemViewModel>();
-            this.Others = new ObservableCollection<ItemViewModel>();
+            this.Device = new ObservableCollection<PanoramaItemModel>();
+            this.Finance = new ObservableCollection<PanoramaItemModel>();
+            this.Others = new ObservableCollection<PanoramaItemModel>();
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
-        public ObservableCollection<ItemViewModel> Device { get; private set; }
-        public ObservableCollection<ItemViewModel> Finance { get; private set; }
-        public ObservableCollection<ItemViewModel> Others { get; private set; }
+        public ObservableCollection<PanoramaItemModel> Device { get; private set; }
+        public ObservableCollection<PanoramaItemModel> Finance { get; private set; }
+        public ObservableCollection<PanoramaItemModel> Others { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -65,19 +65,19 @@ namespace SriToolBox
         public void LoadData()
         {
             //Device data
-            this.Device.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Device/SystemInfo.png", Name = "System Info", Description = "know about your device" });
-            this.Device.Add(new ItemViewModel() { ID = 2, ImagePath = "Images/Device/CallHistory.png", Name = "Call History", Description = "check your call history" });
-            this.Device.Add(new ItemViewModel() { ID = 3, ImagePath = "Images/Device/MessageHistory.png", Name = "Message History", Description = "see your messages history" });
-            this.Device.Add(new ItemViewModel() { ID = 4, ImagePath = "Images/Device/Multimedia.png", Name = "Multimedia", Description = "get details about your media" });
-            this.Device.Add(new ItemViewModel() { ID = 5, ImagePath = "Images/Device/DataUsage.png", Name = "Data Usage", Description = "track data usage on your device" });
+            this.Device.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Device/SystemInfo.png", Name = "System Info", Description = "know more about your device" });
+            this.Device.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Device/CallHistory.png", Name = "Call History", Description = "check your call records" });
+            this.Device.Add(new PanoramaItemModel() { ID = 3, ImagePath = "Images/Device/MessageHistory.png", Name = "Message History", Description = "see your message history" });
+            this.Device.Add(new PanoramaItemModel() { ID = 4, ImagePath = "Images/Device/Multimedia.png", Name = "Multimedia", Description = "get details about your media" });
+            this.Device.Add(new PanoramaItemModel() { ID = 5, ImagePath = "Images/Device/DataUsage.png", Name = "Data Usage", Description = "track your data usage" });
 
             //Finance data
-            this.Finance.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest which you get on principal amount" });
-            this.Finance.Add(new ItemViewModel() { ID = 2, ImagePath = "Images/Finance/CalcTax.png", Name = "Calculate Tax", Description = "calculate the tax payable over the taxable income" });
+            this.Finance.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest which you get on principal amount" });
+            this.Finance.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Finance/CalcTax.png", Name = "Calculate Tax", Description = "calculate the tax payable over the taxable income" });
 
             //Settings data
-            this.Others.Add(new ItemViewModel() { ID = 1, ImagePath = "Images/Others/About.png", Name = "About", Description = "want to know more about SriToolBox?" });
-            this.Others.Add(new ItemViewModel() { ID = 2, ImagePath = "Images/Others/Feedback.png", Name = "Feedback", Description = "tell us your feedback about app" });
+            this.Others.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Others/About.png", Name = "About", Description = "want to know more about SriToolBox?" });
+            this.Others.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Others/Feedback.png", Name = "Feedback", Description = "tell us your feedback about app" });
 
             this.IsDataLoaded = true;
         }

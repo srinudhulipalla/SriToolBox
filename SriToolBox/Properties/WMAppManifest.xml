@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{afd26608-57ae-4bec-b4cd-f42d2517c051}" Title="SriToolBox" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="SriToolBox author" Description="Sample description" Publisher="SriToolBox">
+  <App xmlns="" ProductID="{afd26608-57ae-4bec-b4cd-f42d2517c051}" Title="SriToolBox" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Srinivasa Rao Dhulipalla" Description="All in one toolbox" Publisher="SriToolBox">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
