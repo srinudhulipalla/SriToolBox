@@ -15,8 +15,7 @@ using Microsoft.Phone.Info;
 namespace SriToolBox
 {
     public partial class MainPage : PhoneApplicationPage
-    {
-        FrameworkElement UIElement = null;
+    {        
         PanoramaItemModel PanoramaItem = null;
 
         // Constructor
@@ -40,8 +39,7 @@ namespace SriToolBox
 
         private void Device_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            UIElement = e.OriginalSource as FrameworkElement;
-            PanoramaItem = UIElement.DataContext as PanoramaItemModel;
+            PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
 
             switch (PanoramaItem.ID)
             {
@@ -94,9 +92,8 @@ namespace SriToolBox
         }
 
         private void Finance_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            UIElement = e.OriginalSource as FrameworkElement;
-            PanoramaItem = UIElement.DataContext as PanoramaItemModel;
+        {       
+            PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
 
             switch (PanoramaItem.ID)
             {
@@ -108,9 +105,8 @@ namespace SriToolBox
         }
 
         private void Others_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            UIElement = e.OriginalSource as FrameworkElement;
-            PanoramaItem = UIElement.DataContext as PanoramaItemModel;
+        {     
+            PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
 
             switch (PanoramaItem.ID)
             {

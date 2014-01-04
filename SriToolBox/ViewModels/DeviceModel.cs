@@ -14,6 +14,10 @@ using Microsoft.Phone.Info;
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Phone.Net.NetworkInformation;
+using System.Text;
+using Microsoft.Devices;
+using Microsoft.Devices.Radio;
+using System.Windows.Navigation;
 
 namespace SriToolBox.ViewModels
 {
@@ -21,20 +25,18 @@ namespace SriToolBox.ViewModels
     {
         public DeviceModel()
         {
-            this.System = new ObservableCollection<BindItemModel>();
+            this.WPSystem = new ObservableCollection<BindItemModel>();
             this.Memory = new ObservableCollection<BindItemModel>();
             this.Network = new ObservableCollection<BindItemModel>();
+            this.Miscellaneous = new ObservableCollection<BindItemModel>();
 
             DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
-        }
+        }        
 
-        
-
-        public ObservableCollection<BindItemModel> System { get; private set; }
+        public ObservableCollection<BindItemModel> WPSystem { get; private set; }
         public ObservableCollection<BindItemModel> Memory { get; private set; }
         public ObservableCollection<BindItemModel> Network { get; private set; }
-
-        
+        public ObservableCollection<BindItemModel> Miscellaneous { get; private set; }
 
         public bool IsDataLoaded
         {
@@ -47,19 +49,20 @@ namespace SriToolBox.ViewModels
             this.LoadSystemData();
             this.LoadMemoryData();
             this.LoadNetworkData();
+            this.LoadMiscellaneousData();
 
             this.IsDataLoaded = true;            
         }
 
         void LoadSystemData()
         {
-            this.System.Add(new BindItemModel() { Title = "Manufacturer", Content = DeviceStatus.DeviceManufacturer });
-            this.System.Add(new BindItemModel() { Title = "Model", Content = DeviceStatus.DeviceName });
-            this.System.Add(new BindItemModel() { Title = "Firmware Version", Content = DeviceStatus.DeviceFirmwareVersion });
-            this.System.Add(new BindItemModel() { Title = "Hardware Version", Content = DeviceStatus.DeviceHardwareVersion });            
-            this.System.Add(new BindItemModel() { Title = "OS Version", Content = "Windows Phone " + Environment.OSVersion.Version });
-            this.System.Add(new BindItemModel() { Title = ".NET CLR Version", Content = Environment.Version.ToString() });
-            this.System.Add(new BindItemModel() { Title = "Unique Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
+            this.WPSystem.Add(new BindItemModel() { Title = "Manufacturer", Content = DeviceStatus.DeviceManufacturer });
+            this.WPSystem.Add(new BindItemModel() { Title = "Model", Content = DeviceStatus.DeviceName });
+            this.WPSystem.Add(new BindItemModel() { Title = "Firmware Version", Content = DeviceStatus.DeviceFirmwareVersion });
+            this.WPSystem.Add(new BindItemModel() { Title = "Hardware Version", Content = DeviceStatus.DeviceHardwareVersion });
+            this.WPSystem.Add(new BindItemModel() { Title = "OS Version", Content = "Windows Phone " + System.Environment.OSVersion.Version });
+            this.WPSystem.Add(new BindItemModel() { Title = ".NET CLR Version", Content = System.Environment.Version.ToString() });
+            this.WPSystem.Add(new BindItemModel() { Title = "Unique Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
         }
 
         void LoadMemoryData()
@@ -82,10 +85,7 @@ namespace SriToolBox.ViewModels
             MediaLibrary lib = new MediaLibrary();
             int i = lib.Pictures.Count;
 
-           
-            
-
-            
+            //Geolocator
         }
 
         void LoadNetworkData()
@@ -99,17 +99,44 @@ namespace SriToolBox.ViewModels
             this.Network.Add(new BindItemModel() { Title = "Data Enabled", Content = DeviceNetworkInformation.IsCellularDataEnabled.ToString() });
             this.Network.Add(new BindItemModel() { Title = "Data Roaming Enabled", Content = DeviceNetworkInformation.IsCellularDataRoamingEnabled.ToString() });
 
+            StringBuilder sb = new StringBuilder();
+
             while (list.MoveNext())
             {
                 NetworkInterfaceInfo networkInfo = list.Current;
 
-                this.Network.Add(new BindItemModel() { Title = "Name", Content = networkInfo.InterfaceName });
-                this.Network.Add(new BindItemModel() { Title = "Type", Content = networkInfo.InterfaceType.ToString() });
-                this.Network.Add(new BindItemModel() { Title = "SubType", Content = networkInfo.InterfaceSubtype.ToString() });
-                this.Network.Add(new BindItemModel() { Title = "State", Content = networkInfo.InterfaceState.ToString() });
-                this.Network.Add(new BindItemModel() { Title = "Description", Content = networkInfo.Description });
-                this.Network.Add(new BindItemModel() { Title = "Speed", Content = networkInfo.Bandwidth.ToString() });
-                this.Network.Add(new BindItemModel() { Title = "Characteristics", Content = networkInfo.Characteristics.ToString() });
+                sb.AppendLine("Name:            " + networkInfo.InterfaceName);
+                sb.AppendLine("Type:            " + networkInfo.InterfaceType);
+                sb.AppendLine("SubType:         " + networkInfo.InterfaceSubtype);
+                sb.AppendLine("State:           " + networkInfo.InterfaceState);
+                sb.AppendLine("Description:     " + networkInfo.Description);
+                sb.AppendLine("Speed:           " + networkInfo.Bandwidth);
+                sb.AppendLine("Characteristics: " + networkInfo.Characteristics);
+                sb.AppendLine();
+            }
+
+            this.Network.Add(new BindItemModel() { Title = "Connection List", Content = sb.ToString() });
+        }
+
+        void LoadMiscellaneousData()
+        {
+            string frontCamera = "Yes", primaryCamera = "Yes";
+
+            if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.FrontFacing)) frontCamera = "No";
+            if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.Primary)) primaryCamera = "No";
+
+            this.Miscellaneous.Add(new BindItemModel() { Title = "Front Camera", Content = frontCamera });
+            this.Miscellaneous.Add(new BindItemModel() { Title = "Primary Camera", Content = primaryCamera });
+
+            try
+            {
+                string radioRegion = FMRadio.Instance.CurrentRegion.ToString();
+                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "Yes" });
+                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Region", Content = radioRegion });
+            }
+            catch (RadioDisabledException ex)
+            {
+                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "No" });
             }
         }
 

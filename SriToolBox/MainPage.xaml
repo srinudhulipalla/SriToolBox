@@ -27,11 +27,11 @@
             <!--Panorama item one-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem Header="Device" Orientation="Horizontal">
-                
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Device}">
+
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Device}" Tap="Device_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Name="Device" Orientation="Horizontal" Margin="0,0,0,17" Tap="Device_Tap">
+                            <StackPanel Name="Device" Orientation="Horizontal" Margin="0,0,0,17">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
@@ -48,11 +48,11 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="Finance">                
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Finance}">
+            <controls:PanoramaItem Header="Finance">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Finance}" Tap="Finance_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Name="Finance" Orientation="Horizontal" Margin="0,0,0,17" Tap="Finance_Tap">
+                            <StackPanel Name="Finance" Orientation="Horizontal" Margin="0,0,0,17">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
                                 <StackPanel Width="350">
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
@@ -65,11 +65,11 @@
             </controls:PanoramaItem>
 
             <!--Panorama item three-->
-            <controls:PanoramaItem Header="Others">                
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Others}">
+            <controls:PanoramaItem Header="Others">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Others}" Tap="Others_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Orientation="Horizontal" Width="432" Height="78" Tap="Others_Tap">
+                            <StackPanel Margin="0,0,0,17" Orientation="Horizontal" Width="432" Height="78">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
