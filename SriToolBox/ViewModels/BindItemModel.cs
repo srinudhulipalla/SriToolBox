@@ -8,10 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace SriToolBox.ViewModels
 {
-    public class BindItemModel
+    public class BindItemModel : INotifyPropertyChanged
     {
         private string _imagePath;
         private string _title;
@@ -31,7 +32,8 @@ namespace SriToolBox.ViewModels
             {
                 if (value != _imagePath)
                 {
-                    _imagePath = value;                    
+                    _imagePath = value;
+                    NotifyPropertyChanged("ImagePath1");
                 }
             }
         }
@@ -50,7 +52,8 @@ namespace SriToolBox.ViewModels
             {
                 if (value != _title)
                 {
-                    _title = value;                    
+                    _title = value;
+                    NotifyPropertyChanged("Title");
                 }
             }
         }
@@ -69,8 +72,19 @@ namespace SriToolBox.ViewModels
             {
                 if (value != _content)
                 {
-                    _content = value;                    
+                    _content = value;
+                    NotifyPropertyChanged("Content");
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

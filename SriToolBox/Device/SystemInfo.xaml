@@ -20,7 +20,7 @@
         <controls:Pivot Title="SriToolBox">
             <!--Pivot item one-->
             <controls:PivotItem Header="System">
-                <ListBox  Margin="10,10,0,0" Name="listBox1" ItemsSource="{Binding System}">
+                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding System}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,15">
@@ -34,10 +34,128 @@
 
             <!--Pivot item two-->
             <controls:PivotItem Header="Memory">
-                <Grid/>
+                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding Memory}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
+
+            <!--Pivot item three-->
+            <controls:PivotItem Header="Network">
+                
+                <ScrollViewer>
+                    <Grid>
+                        <StackPanel>
+                            <ListBox Margin="10,10,0,0" ItemsSource="{Binding Network}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,15">
+                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                                            <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        
+                        
+                            <ListBox Margin="10,10,0,0" ItemsSource="{Binding Network}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,15">
+                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                                            <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        
+                        <!--<Grid >
+                            <ItemsControl ItemsSource="{Binding Network}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}" />
+                                                <TextBlock Text="{Binding Content}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>-->
+
+
+                    <!--</Grid>
+                </ScrollViewer>-->
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="first" Height="580" >
+                <!--Double line list with text wrapping-->
+                <ScrollViewer>
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock1" Text="Property Id" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock2" Text="County" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock3" Text="Parcel Number" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock4" Text="Market Value" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock5" Text="Document Image" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock6" Text="Value Range" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" Margin="12,5,279,0" Name="textBlock7" Text="Insured" VerticalAlignment="Top" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock8" Text="Case Number" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock9" Text="Recording Date" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock10" Text="Recording Book" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock11" Text="Recording Page" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-385,0,0" Name="tbkPropertyId" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-350,0,0" Name="tbkCounty" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-315,0,0" Name="tbkParcelNo" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-275,0,0" Name="tbkMarketValue" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-240,0,0" Name="tbkDocumentImage" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-205,0,0" Name="tbkValueRange" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-170,0,0" Name="tbkInsured" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-135,0,0" Name="tbkCaseNo" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-100,0,0" Name="tbkRecordingDate" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-65,0,0" Name="tbkRecordingBook" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-30,0,0" Name="tbkRecordingPage" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlsock1" Text="Property Id" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textsBlock2" Text="County" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBslock3" Text="Parcel Number" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textsBlock4" Text="Market Value" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textsBlock5" Text="Document Image" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textsBlock6" Text="Value Range" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlocsk7" Text="Insured" VerticalAlignment="Top" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBslock8" Text="Case Number" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBslock9" Text="Recording Date" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlsock10" Text="Recording Book" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBsock11" Text="Recording Page" VerticalAlignment="Top" Width="189" Foreground="White" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-380,0,0" Name="tbkPropsertyId" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-345,0,0" Name="tbkCosunty" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-310,0,0" Name="tbkPasrcelNo" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-275,0,0" Name="tbkMsarketValue" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-240,0,0" Name="tbkDsocumentImage" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-205,0,0" Name="s" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-170,0,0" Name="tsbkInsured" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-135,0,0" Name="tbskCaseNo" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-100,0,0" Name="tbskRecordingDate" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-70,0,0" Name="tbksRecordingBook" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                            <TextBlock Foreground="White" Height="30" HorizontalAlignment="Left" Margin="241,-35,0,0" Name="tbkRsecordingPage" Text="Loading..." VerticalAlignment="Top" Width="189" />
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </controls:PivotItem>
+
         </controls:Pivot>
-        
+
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
@@ -51,5 +169,5 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
-    
+
 </phone:PhoneApplicationPage>
