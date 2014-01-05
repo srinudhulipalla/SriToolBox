@@ -42,10 +42,6 @@ namespace SriToolBox.ViewModels
             this.Miscellaneous = new ObservableCollection<BindItemModel>();
             this.Multimedia = new ObservableCollection<BindItemModel>();
             this.Player = new ObservableCollection<BindItemModel>();
-
-            DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
-            DeviceStatus.PowerSourceChanged += new EventHandler(DeviceStatus_PowerSourceChanged);
-            //MediaPlayer.MediaStateChanged += new EventHandler<EventArgs>(MediaPlayer_MediaStateChanged);
         } 
 
         public bool IsDataLoaded
@@ -66,13 +62,28 @@ namespace SriToolBox.ViewModels
 
         void LoadSystem()
         {
+            object liveId = null;
+
+            try
+            {
+                UserExtendedProperties.TryGetValue("ANID", out liveId);
+
+                if (liveId != null)
+                {
+                    liveId = liveId.ToString().Substring(2, 32);
+                    liveId = Guid.Parse(liveId.ToString());
+                }
+            }
+            catch { liveId = "-"; }
+
             this.WPSystem.Add(new BindItemModel() { Title = "Manufacturer", Content = DeviceStatus.DeviceManufacturer });
             this.WPSystem.Add(new BindItemModel() { Title = "Model", Content = DeviceStatus.DeviceName });
             this.WPSystem.Add(new BindItemModel() { Title = "Firmware Version", Content = DeviceStatus.DeviceFirmwareVersion });
             this.WPSystem.Add(new BindItemModel() { Title = "Hardware Version", Content = DeviceStatus.DeviceHardwareVersion });
             this.WPSystem.Add(new BindItemModel() { Title = "OS Version", Content = "Windows Phone " + System.Environment.OSVersion.Version });
             this.WPSystem.Add(new BindItemModel() { Title = ".NET CLR Version", Content = System.Environment.Version.ToString() });
-            this.WPSystem.Add(new BindItemModel() { Title = "Unique Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
+            this.WPSystem.Add(new BindItemModel() { Title = "Device Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
+            this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = liveId.ToString() });
         }
 
         void LoadMemory()
@@ -119,7 +130,7 @@ namespace SriToolBox.ViewModels
                 sb.AppendLine("Type:              " + networkInfo.InterfaceType);
                 sb.AppendLine("SubType:        " + networkInfo.InterfaceSubtype);
                 sb.AppendLine("State:              " + networkInfo.InterfaceState);
-                sb.AppendLine("Bandwidth:    " + networkInfo.Bandwidth);
+                sb.AppendLine("Bandwidth:     " + networkInfo.Bandwidth);
                 sb.AppendLine("Description:    " + networkInfo.Description);                
                 
                 sb.AppendLine();
@@ -213,25 +224,7 @@ namespace SriToolBox.ViewModels
             }
 
             return string.Format("{0:0.##} {1}", length, size[i]);
-        }
-
-        void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
-        {
-            this.Network.Clear();
-            this.LoadNetwork();
-        }
-
-        void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
-        {
-            this.Miscellaneous.Clear();
-            this.LoadMiscellaneous();
-        }
-
-        void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
-        {   
-            this.Miscellaneous.Clear();
-            this.LoadMiscellaneous();
-        }  
+        }        
         
     }
 }

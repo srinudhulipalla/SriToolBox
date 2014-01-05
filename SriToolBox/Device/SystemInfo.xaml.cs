@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using SriToolBox.ViewModels;
+using Microsoft.Phone.Info;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace SriToolBox.Device
 {
@@ -35,7 +37,9 @@ namespace SriToolBox.Device
 
             this.DataContext = this.DeviceDetails;
             this.Loaded += new RoutedEventHandler(SystemInfo_Loaded);
-        }
+            DeviceStatus.PowerSourceChanged += new EventHandler(DeviceStatus_PowerSourceChanged);
+            DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
+        }        
 
         protected void SystemInfo_Loaded(object sender, RoutedEventArgs e)
         {
@@ -44,5 +48,24 @@ namespace SriToolBox.Device
                 this.DeviceDetails.LoadSystemData();
             }
         }
+
+        void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(() =>
+            {
+                this.DeviceDetails.ClearSystemData();
+                this.DeviceDetails.LoadSystemData();                
+            });
+        }
+
+        void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, EventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(() =>
+            {
+                this.DeviceDetails.ClearSystemData();
+                this.DeviceDetails.LoadSystemData();
+            });
+        }
+
     }
 }
