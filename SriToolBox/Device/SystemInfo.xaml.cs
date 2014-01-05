@@ -41,7 +41,7 @@ namespace SriToolBox.Device
         {
             if (!this.DeviceDetails.IsDataLoaded)
             {
-                this.DeviceDetails.LoadData();
+                this.DeviceDetails.LoadSystemData();
             }
         }
     }

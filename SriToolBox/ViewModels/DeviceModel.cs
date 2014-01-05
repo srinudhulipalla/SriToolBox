@@ -18,25 +18,35 @@ using System.Text;
 using Microsoft.Devices;
 using Microsoft.Devices.Radio;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace SriToolBox.ViewModels
 {
     public class DeviceModel 
     {
+        //System Info
+        public ObservableCollection<BindItemModel> WPSystem { get; private set; }
+        public ObservableCollection<BindItemModel> Memory { get; private set; }
+        public ObservableCollection<BindItemModel> Network { get; private set; }
+        public ObservableCollection<BindItemModel> Miscellaneous { get; private set; }
+
+        //Multimedia
+        public ObservableCollection<BindItemModel> Multimedia { get; private set; }
+        public ObservableCollection<BindItemModel> Player { get; private set; }
+
         public DeviceModel()
         {
             this.WPSystem = new ObservableCollection<BindItemModel>();
             this.Memory = new ObservableCollection<BindItemModel>();
             this.Network = new ObservableCollection<BindItemModel>();
             this.Miscellaneous = new ObservableCollection<BindItemModel>();
+            this.Multimedia = new ObservableCollection<BindItemModel>();
+            this.Player = new ObservableCollection<BindItemModel>();
 
             DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
-        }        
-
-        public ObservableCollection<BindItemModel> WPSystem { get; private set; }
-        public ObservableCollection<BindItemModel> Memory { get; private set; }
-        public ObservableCollection<BindItemModel> Network { get; private set; }
-        public ObservableCollection<BindItemModel> Miscellaneous { get; private set; }
+            DeviceStatus.PowerSourceChanged += new EventHandler(DeviceStatus_PowerSourceChanged);
+            //MediaPlayer.MediaStateChanged += new EventHandler<EventArgs>(MediaPlayer_MediaStateChanged);
+        } 
 
         public bool IsDataLoaded
         {
@@ -44,17 +54,17 @@ namespace SriToolBox.ViewModels
             private set;
         }
 
-        public void LoadData()
+        public void LoadSystemData()
         {
-            this.LoadSystemData();
-            this.LoadMemoryData();
-            this.LoadNetworkData();
-            this.LoadMiscellaneousData();
+            this.LoadSystem();
+            this.LoadMemory();
+            this.LoadNetwork();
+            this.LoadMiscellaneous();
 
             this.IsDataLoaded = true;            
         }
 
-        void LoadSystemData()
+        void LoadSystem()
         {
             this.WPSystem.Add(new BindItemModel() { Title = "Manufacturer", Content = DeviceStatus.DeviceManufacturer });
             this.WPSystem.Add(new BindItemModel() { Title = "Model", Content = DeviceStatus.DeviceName });
@@ -65,7 +75,7 @@ namespace SriToolBox.ViewModels
             this.WPSystem.Add(new BindItemModel() { Title = "Unique Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
         }
 
-        void LoadMemoryData()
+        void LoadMemory()
         {
             this.Memory.Add(new BindItemModel() { Title = "Total Memory", Content = GetDiskSize(DeviceStatus.DeviceTotalMemory) });
 
@@ -88,7 +98,7 @@ namespace SriToolBox.ViewModels
             //Geolocator
         }
 
-        void LoadNetworkData()
+        void LoadNetwork()
         {
                  
             NetworkInterfaceList list = new NetworkInterfaceList();
@@ -106,25 +116,27 @@ namespace SriToolBox.ViewModels
                 NetworkInterfaceInfo networkInfo = list.Current;
 
                 sb.AppendLine("Name:            " + networkInfo.InterfaceName);
-                sb.AppendLine("Type:            " + networkInfo.InterfaceType);
-                sb.AppendLine("SubType:         " + networkInfo.InterfaceSubtype);
-                sb.AppendLine("State:           " + networkInfo.InterfaceState);
-                sb.AppendLine("Description:     " + networkInfo.Description);
-                sb.AppendLine("Speed:           " + networkInfo.Bandwidth);
-                sb.AppendLine("Characteristics: " + networkInfo.Characteristics);
+                sb.AppendLine("Type:              " + networkInfo.InterfaceType);
+                sb.AppendLine("SubType:        " + networkInfo.InterfaceSubtype);
+                sb.AppendLine("State:              " + networkInfo.InterfaceState);
+                sb.AppendLine("Bandwidth:    " + networkInfo.Bandwidth);
+                sb.AppendLine("Description:    " + networkInfo.Description);                
+                
                 sb.AppendLine();
             }
 
-            this.Network.Add(new BindItemModel() { Title = "Connection List", Content = sb.ToString() });
+            this.Network.Add(new BindItemModel() { Title = "Connected To", Content = sb.ToString() });
         }
 
-        void LoadMiscellaneousData()
+        void LoadMiscellaneous()
         {
-            string frontCamera = "Yes", primaryCamera = "Yes";
+            string powerSource = "Running on Battery", frontCamera = "Yes", primaryCamera = "Yes";
 
+            if (DeviceStatus.PowerSource == PowerSource.External) powerSource = "Battery is charging";
             if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.FrontFacing)) frontCamera = "No";
             if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.Primary)) primaryCamera = "No";
 
+            this.Miscellaneous.Add(new BindItemModel() { Title = "Battery Status", Content = powerSource });
             this.Miscellaneous.Add(new BindItemModel() { Title = "Front Camera", Content = frontCamera });
             this.Miscellaneous.Add(new BindItemModel() { Title = "Primary Camera", Content = primaryCamera });
 
@@ -134,10 +146,58 @@ namespace SriToolBox.ViewModels
                 this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "Yes" });
                 this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Region", Content = radioRegion });
             }
-            catch (RadioDisabledException ex)
+            catch (RadioDisabledException)
             {
                 this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "No" });
             }
+        }
+
+        public void LoadMultimediaData()
+        {
+            this.LoadMedia();
+            this.LoadPlayer();
+
+            this.IsDataLoaded = true;
+        }
+
+        void LoadMedia()
+        {
+            MediaLibrary library = new MediaLibrary();
+            this.Multimedia.Add(new BindItemModel() { Title = "Photos", Content = library.Pictures.Count.ToString() });
+            this.Multimedia.Add(new BindItemModel() { Title = "Songs", Content = library.Songs.Count.ToString() });
+            this.Multimedia.Add(new BindItemModel() { Title = "Albums", Content = library.Albums.Count.ToString() });
+            this.Multimedia.Add(new BindItemModel() { Title = "Artists", Content = library.Artists.Count.ToString() });
+            this.Multimedia.Add(new BindItemModel() { Title = "Genres", Content = library.Genres.Count.ToString() });
+            this.Multimedia.Add(new BindItemModel() { Title = "Playlists", Content = library.Playlists.Count.ToString() });
+        }
+
+        void LoadPlayer()
+        {
+            string runningSoneName = "-";
+
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                runningSoneName = MediaPlayer.Queue.ActiveSong.Name;
+            }
+
+            this.Player.Add(new BindItemModel() { Title = "Player Status", Content = MediaPlayer.State.ToString() });
+            this.Player.Add(new BindItemModel() { Title = "Currently Playing Song", Content = runningSoneName });
+        }
+
+        public void ClearSystemData()
+        {
+            this.WPSystem.Clear();
+            this.Memory.Clear();
+            this.Network.Clear();
+            this.Miscellaneous.Clear();
+            IsDataLoaded = false;
+        }
+
+        public void ClearMultimediaData()
+        {
+            this.Multimedia.Clear();
+            this.Player.Clear();
+            IsDataLoaded = false;
         }
 
         string GetDiskSize(long sizeInBytes)
@@ -158,9 +218,20 @@ namespace SriToolBox.ViewModels
         void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
         {
             this.Network.Clear();
-            this.LoadNetworkData();
+            this.LoadNetwork();
         }
 
+        void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
+        {
+            this.Miscellaneous.Clear();
+            this.LoadMiscellaneous();
+        }
+
+        void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
+        {   
+            this.Miscellaneous.Clear();
+            this.LoadMiscellaneous();
+        }  
         
     }
 }

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace SriToolBox.ViewModels
 {
@@ -16,7 +17,7 @@ namespace SriToolBox.ViewModels
     {
         private string _imagePath;
         private string _title;
-        private string _content;
+        private string _content;        
 
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.

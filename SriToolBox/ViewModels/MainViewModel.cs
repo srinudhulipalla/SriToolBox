@@ -70,6 +70,7 @@ namespace SriToolBox
             this.Device.Add(new PanoramaItemModel() { ID = 3, ImagePath = "Images/Device/MessageHistory.png", Name = "Message History", Description = "see your message history" });
             this.Device.Add(new PanoramaItemModel() { ID = 4, ImagePath = "Images/Device/Multimedia.png", Name = "Multimedia", Description = "get details about your media" });
             this.Device.Add(new PanoramaItemModel() { ID = 5, ImagePath = "Images/Device/DataUsage.png", Name = "Data Usage", Description = "track your data usage" });
+            this.Device.Add(new PanoramaItemModel() { ID = 6, ImagePath = "Images/Device/Apps.png", Name = "Apps", Description = "review apps with its size" });
 
             //Finance data
             this.Finance.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest which you get on principal amount" });
