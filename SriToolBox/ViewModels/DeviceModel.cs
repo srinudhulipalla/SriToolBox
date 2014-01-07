@@ -74,16 +74,16 @@ namespace SriToolBox.ViewModels
                     liveId = Guid.Parse(liveId.ToString());
                 }
             }
-            catch { liveId = "-"; }
+            catch { liveId = "N/A"; }
 
             this.WPSystem.Add(new BindItemModel() { Title = "Manufacturer", Content = DeviceStatus.DeviceManufacturer });
             this.WPSystem.Add(new BindItemModel() { Title = "Model", Content = DeviceStatus.DeviceName });
             this.WPSystem.Add(new BindItemModel() { Title = "Firmware Version", Content = DeviceStatus.DeviceFirmwareVersion });
             this.WPSystem.Add(new BindItemModel() { Title = "Hardware Version", Content = DeviceStatus.DeviceHardwareVersion });
-            this.WPSystem.Add(new BindItemModel() { Title = "OS Version", Content = "Windows Phone " + System.Environment.OSVersion.Version });
+            this.WPSystem.Add(new BindItemModel() { Title = "OS Version", Content = System.Environment.OSVersion.ToString() });
             this.WPSystem.Add(new BindItemModel() { Title = ".NET CLR Version", Content = System.Environment.Version.ToString() });
             this.WPSystem.Add(new BindItemModel() { Title = "Device Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
-            this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = liveId.ToString() });
+            this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = (liveId == null) ? "N/A" : liveId.ToString() });
         }
 
         void LoadMemory()
@@ -111,28 +111,30 @@ namespace SriToolBox.ViewModels
 
         void LoadNetwork()
         {
-                 
-            NetworkInterfaceList list = new NetworkInterfaceList();
-
-            this.Network.Add(new BindItemModel() { Title = "Operator", Content = DeviceNetworkInformation.CellularMobileOperator });
-            this.Network.Add(new BindItemModel() { Title = "Network Availability", Content = DeviceNetworkInformation.IsNetworkAvailable.ToString() });
-            this.Network.Add(new BindItemModel() { Title = "WiFi", Content = DeviceNetworkInformation.IsWiFiEnabled.ToString() });
-            this.Network.Add(new BindItemModel() { Title = "Data Enabled", Content = DeviceNetworkInformation.IsCellularDataEnabled.ToString() });
-            this.Network.Add(new BindItemModel() { Title = "Data Roaming Enabled", Content = DeviceNetworkInformation.IsCellularDataRoamingEnabled.ToString() });
-
             StringBuilder sb = new StringBuilder();
 
-            while (list.MoveNext())
+            string internet = DeviceNetworkInformation.IsNetworkAvailable ? "Yes" : "No";
+            string wiFi = DeviceNetworkInformation.IsWiFiEnabled ? "Yes" : "No";
+            string data = DeviceNetworkInformation.IsCellularDataEnabled ? "Yes" : "No";
+            string dataRoaming = DeviceNetworkInformation.IsCellularDataRoamingEnabled ? "Yes" : "No"; 
+
+            this.Network.Add(new BindItemModel() { Title = "Operator", Content = DeviceNetworkInformation.CellularMobileOperator });
+            this.Network.Add(new BindItemModel() { Title = "Internet Availability", Content = internet });
+            this.Network.Add(new BindItemModel() { Title = "WiFi", Content = wiFi });
+            this.Network.Add(new BindItemModel() { Title = "Data Enabled", Content = data });
+            this.Network.Add(new BindItemModel() { Title = "Data Roaming Enabled", Content = dataRoaming });            
+
+            foreach (NetworkInterfaceInfo networkInfo in new NetworkInterfaceList())
             {
-                NetworkInterfaceInfo networkInfo = list.Current;
+                if (networkInfo.InterfaceName.ToLower().StartsWith("software loopback")) continue;
 
                 sb.AppendLine("Name:            " + networkInfo.InterfaceName);
                 sb.AppendLine("Type:              " + networkInfo.InterfaceType);
                 sb.AppendLine("SubType:        " + networkInfo.InterfaceSubtype);
                 sb.AppendLine("State:              " + networkInfo.InterfaceState);
-                sb.AppendLine("Bandwidth:     " + networkInfo.Bandwidth);
-                sb.AppendLine("Description:    " + networkInfo.Description);                
-                
+                sb.AppendLine("Bandwidth:     " + networkInfo.Bandwidth / 1000 + " Mbps");
+                sb.AppendLine("Description:    " + networkInfo.Description);
+
                 sb.AppendLine();
             }
 
@@ -141,13 +143,11 @@ namespace SriToolBox.ViewModels
 
         void LoadMiscellaneous()
         {
-            string powerSource = "Running on Battery", frontCamera = "Yes", primaryCamera = "Yes";
+            string powerSource = DeviceStatus.PowerSource == PowerSource.Battery ? "Running on Battery" : "Battery is charging";
+            string frontCamera = PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) ? "Yes" : "No";
+            string primaryCamera = PhotoCamera.IsCameraTypeSupported(CameraType.Primary) ? "Yes" : "No";            
 
-            if (DeviceStatus.PowerSource == PowerSource.External) powerSource = "Battery is charging";
-            if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.FrontFacing)) frontCamera = "No";
-            if (!PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.Primary)) primaryCamera = "No";
-
-            this.Miscellaneous.Add(new BindItemModel() { Title = "Battery Status", Content = powerSource });
+            this.Miscellaneous.Add(new BindItemModel() { Title = "Power Status", Content = powerSource });
             this.Miscellaneous.Add(new BindItemModel() { Title = "Front Camera", Content = frontCamera });
             this.Miscellaneous.Add(new BindItemModel() { Title = "Primary Camera", Content = primaryCamera });
 
@@ -184,7 +184,7 @@ namespace SriToolBox.ViewModels
 
         void LoadPlayer()
         {
-            string runningSoneName = "-";
+            string runningSoneName = "N/A";
 
             if (MediaPlayer.State == MediaState.Playing)
             {

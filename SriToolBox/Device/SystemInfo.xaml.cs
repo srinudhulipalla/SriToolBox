@@ -58,7 +58,7 @@ namespace SriToolBox.Device
             });
         }
 
-        void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, EventArgs e)
+        void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
         {
             this.Dispatcher.BeginInvoke(() =>
             {
