@@ -50,7 +50,7 @@ namespace SriToolBox.ViewModels
             private set;
         }
 
-        public void LoadSystemData()
+        public void LoadSystemInfo()
         {
             this.LoadSystem();
             this.LoadMemory();
@@ -60,7 +60,7 @@ namespace SriToolBox.ViewModels
             this.IsDataLoaded = true;            
         }
 
-        void LoadSystem()
+        public void LoadSystem()
         {
             object liveId = null;
 
@@ -86,9 +86,9 @@ namespace SriToolBox.ViewModels
             this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = (liveId == null) ? "N/A" : liveId.ToString() });
         }
 
-        void LoadMemory()
+        public void LoadMemory()
         {
-            this.Memory.Add(new BindItemModel() { Title = "Total Memory", Content = GetDiskSize(DeviceStatus.DeviceTotalMemory) });
+            this.Memory.Add(new BindItemModel() { Title = "Total Memory", Content = Common.GetDiskSize(DeviceStatus.DeviceTotalMemory) });
 
             string ss = Microsoft.Devices.Environment.DeviceType.ToString();
             //ss = Microsoft.Devices.MediaHistory.Instance.NowPlaying.Title;
@@ -109,12 +109,12 @@ namespace SriToolBox.ViewModels
             //Geolocator
         }
 
-        void LoadNetwork()
+        public void LoadNetwork()
         {
             StringBuilder sb = new StringBuilder();
 
             string internet = DeviceNetworkInformation.IsNetworkAvailable ? "Yes" : "No";
-            string wiFi = DeviceNetworkInformation.IsWiFiEnabled ? "Yes" : "No";
+            string wiFi = DeviceNetworkInformation.IsWiFiEnabled ? "On" : "Off";
             string data = DeviceNetworkInformation.IsCellularDataEnabled ? "Yes" : "No";
             string dataRoaming = DeviceNetworkInformation.IsCellularDataRoamingEnabled ? "Yes" : "No"; 
 
@@ -138,10 +138,10 @@ namespace SriToolBox.ViewModels
                 sb.AppendLine();
             }
 
-            this.Network.Add(new BindItemModel() { Title = "Connected To", Content = sb.ToString() });
+            this.Network.Add(new BindItemModel() { Title = "Connected To", Content = string.IsNullOrEmpty(sb.ToString()) ? "None" : sb.ToString() });
         }
 
-        void LoadMiscellaneous()
+        public void LoadMiscellaneous()
         {
             string powerSource = DeviceStatus.PowerSource == PowerSource.Battery ? "Running on Battery" : "Battery is charging";
             string frontCamera = PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) ? "Yes" : "No";
@@ -195,7 +195,7 @@ namespace SriToolBox.ViewModels
             this.Player.Add(new BindItemModel() { Title = "Currently Playing Song", Content = runningSoneName });
         }
 
-        public void ClearSystemData()
+        public void ClearSystemInfo()
         {
             this.WPSystem.Clear();
             this.Memory.Clear();
@@ -209,22 +209,7 @@ namespace SriToolBox.ViewModels
             this.Multimedia.Clear();
             this.Player.Clear();
             IsDataLoaded = false;
-        }
-
-        string GetDiskSize(long sizeInBytes)
-        {
-            double length = (double)sizeInBytes;
-            string[] size = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-            int i = 0;
-
-            while (Math.Round(length / 1024) >= 1)
-            {
-                length /= 1024;
-                i++;
-            }
-
-            return string.Format("{0:0.##} {1}", length, size[i]);
-        }        
+        }             
         
     }
 }

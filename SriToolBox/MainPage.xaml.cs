@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
+using Microsoft.Phone.Tasks;
 
 namespace SriToolBox
 {
@@ -73,29 +74,14 @@ namespace SriToolBox
             {
                 case 1: MessageBox.Show("About");
                     break;
-                case 2: MessageBox.Show("Feedback");
+                case 2: 
+                    EmailComposeTask emailTask = new EmailComposeTask();
+                    emailTask.To = AppSettings.ToEmail;
+                    emailTask.Subject = string.Format("{0} v{1} - Feedback", AppSettings.AppName, Common.GetAppVersion());
+                    emailTask.Show();
                     break;
             }            
         }
-
-        void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(() => {
-                if (DeviceStatus.PowerSource.ToString() != "External")
-                {
-                    MessageBox.Show("Device is disconnected from an external power source.");
-                }
-            });
-        }
-
-        void DeviceDisconnectedFromPower()
-        {
-            if (DeviceStatus.PowerSource.ToString() != "External")
-            {
-                MessageBox.Show("Device is disconnected from an external power source.");
-            }
-        }
-
         
     }
 }

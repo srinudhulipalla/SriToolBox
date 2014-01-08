@@ -45,7 +45,24 @@ namespace SriToolBox.Device
         {
             if (!this.DeviceDetails.IsDataLoaded)
             {
-                this.DeviceDetails.LoadSystemData();
+                //this.DeviceDetails.LoadSystemData();
+            }
+        }
+
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PivotItem pItem = e.AddedItems[0] as PivotItem;
+
+            switch (pItem.Name)
+            {
+                case "system": if (this.DeviceDetails.WPSystem.Count == 0) this.DeviceDetails.LoadSystem();
+                    break;
+                case "memory": if (this.DeviceDetails.Memory.Count == 0) this.DeviceDetails.LoadMemory();
+                    break;
+                case "network": if (this.DeviceDetails.Network.Count == 0) this.DeviceDetails.LoadNetwork();
+                    break;
+                case "misc": if (this.DeviceDetails.Miscellaneous.Count == 0) this.DeviceDetails.LoadMiscellaneous();
+                    break;
             }
         }
 
@@ -53,8 +70,8 @@ namespace SriToolBox.Device
         {
             this.Dispatcher.BeginInvoke(() =>
             {
-                this.DeviceDetails.ClearSystemData();
-                this.DeviceDetails.LoadSystemData();                
+                this.DeviceDetails.Miscellaneous.Clear();
+                this.DeviceDetails.LoadMiscellaneous();               
             });
         }
 
@@ -62,10 +79,10 @@ namespace SriToolBox.Device
         {
             this.Dispatcher.BeginInvoke(() =>
             {
-                this.DeviceDetails.ClearSystemData();
-                this.DeviceDetails.LoadSystemData();
+                this.DeviceDetails.Network.Clear();
+                this.DeviceDetails.LoadNetwork();
             });
-        }
+        }        
 
     }
 }

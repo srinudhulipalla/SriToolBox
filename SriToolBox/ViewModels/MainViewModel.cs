@@ -73,11 +73,11 @@ namespace SriToolBox
             this.Device.Add(new PanoramaItemModel() { ID = 6, ImagePath = "Images/Device/Apps.png", Name = "Apps", Description = "review apps with its size" });
 
             //Finance data
-            this.Finance.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest which you get on principal amount" });
-            this.Finance.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Finance/CalcTax.png", Name = "Calculate Tax", Description = "calculate the tax payable over the taxable income" });
+            this.Finance.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest to be earn" });
+            this.Finance.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Finance/CalcTax.png", Name = "Calculate Tax", Description = "check tax liability on TDS" });
 
             //Settings data
-            this.Others.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Others/About.png", Name = "About", Description = "want to know more about SriToolBox?" });
+            this.Others.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Others/About.png", Name = "About", Description = "know more about SriToolBox" });
             this.Others.Add(new PanoramaItemModel() { ID = 2, ImagePath = "Images/Others/Feedback.png", Name = "Feedback", Description = "tell us your feedback about app" });
 
             this.IsDataLoaded = true;

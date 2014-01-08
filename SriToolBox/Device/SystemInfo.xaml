@@ -17,9 +17,9 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="SriToolBox">
+        <controls:Pivot Title="SriToolBox" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
-            <controls:PivotItem Header="System">
+            <controls:PivotItem Name="system" Header="System">
                 <ListBox  Margin="10,10,0,0" ItemsSource="{Binding WPSystem}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -33,7 +33,7 @@
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="Memory">
+            <controls:PivotItem Name="memory" Header="Memory">
                 <ListBox  Margin="10,10,0,0" ItemsSource="{Binding Memory}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -47,7 +47,7 @@
             </controls:PivotItem>
 
             <!--Pivot item three-->
-            <controls:PivotItem Header="Network">
+            <controls:PivotItem Name="network" Header="Network">
                 <ListBox Margin="10,10,0,0" ItemsSource="{Binding Network}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -61,7 +61,7 @@
             </controls:PivotItem>
 
             <!--Pivot item four-->
-            <controls:PivotItem Header="Miscellaneous">
+            <controls:PivotItem Name="misc" Header="Miscellaneous">
                 <ListBox Margin="10,10,0,0" ItemsSource="{Binding Miscellaneous}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

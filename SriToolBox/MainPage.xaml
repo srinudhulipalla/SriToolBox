@@ -54,7 +54,7 @@
                         <DataTemplate>
                             <StackPanel Name="Finance" Orientation="Horizontal" Margin="0,0,0,17">
                                 <Image Source="{Binding ImagePath}" Width="64" Height="64"></Image>
-                                <StackPanel Width="350">
+                                <StackPanel>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}"/>
                                 </StackPanel>
