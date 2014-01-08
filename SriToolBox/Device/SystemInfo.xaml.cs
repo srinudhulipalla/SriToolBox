@@ -55,13 +55,17 @@ namespace SriToolBox.Device
 
             switch (pItem.Name)
             {
-                case "system": if (this.DeviceDetails.WPSystem.Count == 0) this.DeviceDetails.LoadSystem();
+                case "system": 
+                    if (this.DeviceDetails.WPSystem.Count == 0) this.DeviceDetails.LoadSystem();
                     break;
-                case "memory": if (this.DeviceDetails.Memory.Count == 0) this.DeviceDetails.LoadMemory();
+                case "memory": 
+                    if (this.DeviceDetails.Memory.Count == 0) this.DeviceDetails.LoadMemory();
                     break;
-                case "network": if (this.DeviceDetails.Network.Count == 0) this.DeviceDetails.LoadNetwork();
+                case "network": 
+                    if (this.DeviceDetails.Network.Count == 0) this.DeviceDetails.LoadNetwork();
                     break;
-                case "misc": if (this.DeviceDetails.Miscellaneous.Count == 0) this.DeviceDetails.LoadMiscellaneous();
+                case "misc": 
+                    if (this.DeviceDetails.Miscellaneous.Count == 0) this.DeviceDetails.LoadMiscellaneous();
                     break;
             }
         }
