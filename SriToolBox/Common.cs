@@ -21,7 +21,7 @@ namespace SriToolBox
                 string[] assemblyParts = Assembly.GetExecutingAssembly().FullName.Split(',', '=');
                 return assemblyParts[2];
             }
-            catch { return "X"; }            
+            catch { return "Unknown"; }            
         }
 
         public static string GetDiskSize(long sizeInBytes)
@@ -37,6 +37,21 @@ namespace SriToolBox
             }
 
             return string.Format("{0:0.##} {1}", length, size[i]);
-        }   
+        }
+
+        public static string GetTimeFromTicks(long tickCount)
+        {
+            string time = string.Empty;;
+
+            TimeSpan ts = TimeSpan.FromMilliseconds(tickCount);
+
+            if (ts.Days != 0) time = string.Format("{0} days ", ts.Days);
+            if (ts.Hours != 0) time += string.Format("{0} hours ", ts.Hours);
+            if (ts.Minutes != 0) time += string.Format("{0} minutes ", ts.Minutes);
+            if (ts.Seconds != 0) time += string.Format("{0} seconds ", ts.Seconds);
+
+            return time.Equals(string.Empty) ? "N/A" : time;
+        }
+
     }
 }

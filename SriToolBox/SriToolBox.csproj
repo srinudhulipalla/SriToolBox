@@ -66,6 +66,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Device\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Device\Multimedia.xaml.cs">
       <DependentUpon>Multimedia.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Device\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Device\Multimedia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,7 +134,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="PanoramaBackground.png" />
     <Resource Include="Images\Others\About.png" />
     <Resource Include="Images\Others\Feedback.png" />
     <Resource Include="Images\Finance\CalcInterest.png" />
@@ -140,6 +146,7 @@
     <Resource Include="Images\Device\Multimedia.png" />
     <Resource Include="Images\Device\SystemInfo.png" />
     <Resource Include="Images\Device\Apps.png" />
+    <Resource Include="PanoramaBackground.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

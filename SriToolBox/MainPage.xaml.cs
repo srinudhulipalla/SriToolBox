@@ -41,6 +41,7 @@ namespace SriToolBox
         private void Device_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
+            if (PanoramaItem == null) return;
 
             switch (PanoramaItem.ID)
             {
@@ -56,10 +57,12 @@ namespace SriToolBox
         private void Finance_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {       
             PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
+            if (PanoramaItem == null) return;
 
             switch (PanoramaItem.ID)
             {
-                case 1: this.NavigationService.Navigate(new Uri("/Finance/CalcInterest.xaml", UriKind.Relative));
+                case 1: 
+                    this.NavigationService.Navigate(new Uri("/Finance/CalcInterest.xaml", UriKind.Relative));
                     break;
                 case 2: MessageBox.Show("Calc Tax");
                     break;
@@ -69,10 +72,12 @@ namespace SriToolBox
         private void Others_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {     
             PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
+            if (PanoramaItem == null) return;
 
             switch (PanoramaItem.ID)
             {
-                case 1: MessageBox.Show("About");
+                case 1:
+                    this.NavigationService.Navigate(new Uri("/Device/About.xaml", UriKind.Relative));
                     break;
                 case 2: 
                     EmailComposeTask emailTask = new EmailComposeTask();

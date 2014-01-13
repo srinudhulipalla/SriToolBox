@@ -17,7 +17,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="SriToolBox" SelectionChanged="Pivot_SelectionChanged">
+        <controls:Pivot Name="rootPivot" Title="SriToolBox" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
             <controls:PivotItem Name="system" Header="System">
                 <ListBox  Margin="10,10,0,0" ItemsSource="{Binding WPSystem}">

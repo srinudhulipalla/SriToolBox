@@ -56,8 +56,7 @@ namespace SriToolBox.Device
         }
 
         void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
-        {
-            this.DeviceDetails.ClearMultimediaData();
+        {            
             this.DeviceDetails.LoadMultimediaData();
         }
 

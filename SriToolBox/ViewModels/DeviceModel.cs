@@ -56,12 +56,19 @@ namespace SriToolBox.ViewModels
             this.LoadMemory();
             this.LoadNetwork();
             this.LoadMiscellaneous();
-
             this.IsDataLoaded = true;            
+        }
+
+        public void LoadMultimediaData()
+        {
+            this.LoadMedia();
+            this.LoadPlayer();
+            this.IsDataLoaded = true;
         }
 
         public void LoadSystem()
         {
+            this.WPSystem.Clear();
             object liveId = null;
 
             try
@@ -83,11 +90,12 @@ namespace SriToolBox.ViewModels
             this.WPSystem.Add(new BindItemModel() { Title = "OS Version", Content = System.Environment.OSVersion.ToString() });
             this.WPSystem.Add(new BindItemModel() { Title = ".NET CLR Version", Content = System.Environment.Version.ToString() });
             this.WPSystem.Add(new BindItemModel() { Title = "Device Id", Content = Convert.ToBase64String(DeviceExtendedProperties.GetValue("DeviceUniqueId") as byte[]) });
-            this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = (liveId == null) ? "N/A" : liveId.ToString() });
+            this.WPSystem.Add(new BindItemModel() { Title = "Live Id", Content = (liveId == null) ? "N/A" : liveId.ToString() });            
         }
 
         public void LoadMemory()
         {
+            this.Memory.Clear();
             this.Memory.Add(new BindItemModel() { Title = "Total Memory", Content = Common.GetDiskSize(DeviceStatus.DeviceTotalMemory) });
 
             string ss = Microsoft.Devices.Environment.DeviceType.ToString();
@@ -103,14 +111,13 @@ namespace SriToolBox.ViewModels
             //ss = a.Kind.ToString();
             //ss = a.Name;
             Microsoft.Phone.UserData.Contacts cc = new Microsoft.Phone.UserData.Contacts();
-            MediaLibrary lib = new MediaLibrary();
-            int i = lib.Pictures.Count;
-
+            
             //Geolocator
         }
 
         public void LoadNetwork()
         {
+            this.Network.Clear();
             StringBuilder sb = new StringBuilder();
 
             string internet = DeviceNetworkInformation.IsNetworkAvailable ? "Yes" : "No";
@@ -143,6 +150,7 @@ namespace SriToolBox.ViewModels
 
         public void LoadMiscellaneous()
         {
+            this.Miscellaneous.Clear();
             string powerSource = DeviceStatus.PowerSource == PowerSource.Battery ? "Running on Battery" : "Battery is charging";
             string frontCamera = PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) ? "Yes" : "No";
             string primaryCamera = PhotoCamera.IsCameraTypeSupported(CameraType.Primary) ? "Yes" : "No";            
@@ -161,19 +169,15 @@ namespace SriToolBox.ViewModels
             {
                 this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "No" });
             }
-        }
 
-        public void LoadMultimediaData()
-        {
-            this.LoadMedia();
-            this.LoadPlayer();
-
-            this.IsDataLoaded = true;
-        }
+            this.Miscellaneous.Add(new BindItemModel() { Title = "Bootup Time", Content = Common.GetTimeFromTicks(System.Environment.TickCount) });
+        }        
 
         void LoadMedia()
         {
+            this.Multimedia.Clear();
             MediaLibrary library = new MediaLibrary();
+
             this.Multimedia.Add(new BindItemModel() { Title = "Photos", Content = library.Pictures.Count.ToString() });
             this.Multimedia.Add(new BindItemModel() { Title = "Songs", Content = library.Songs.Count.ToString() });
             this.Multimedia.Add(new BindItemModel() { Title = "Albums", Content = library.Albums.Count.ToString() });
@@ -184,6 +188,7 @@ namespace SriToolBox.ViewModels
 
         void LoadPlayer()
         {
+            this.Player.Clear();
             string runningSoneName = "N/A";
 
             if (MediaPlayer.State == MediaState.Playing)
@@ -193,23 +198,8 @@ namespace SriToolBox.ViewModels
 
             this.Player.Add(new BindItemModel() { Title = "Player Status", Content = MediaPlayer.State.ToString() });
             this.Player.Add(new BindItemModel() { Title = "Currently Playing Song", Content = runningSoneName });
-        }
-
-        public void ClearSystemInfo()
-        {
-            this.WPSystem.Clear();
-            this.Memory.Clear();
-            this.Network.Clear();
-            this.Miscellaneous.Clear();
-            IsDataLoaded = false;
-        }
-
-        public void ClearMultimediaData()
-        {
-            this.Multimedia.Clear();
-            this.Player.Clear();
-            IsDataLoaded = false;
-        }             
+        }  
+               
         
     }
 }

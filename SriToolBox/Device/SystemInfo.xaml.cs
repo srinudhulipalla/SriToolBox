@@ -13,12 +13,15 @@ using Microsoft.Phone.Controls;
 using SriToolBox.ViewModels;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Net.NetworkInformation;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace SriToolBox.Device
 {
     public partial class SystemInfo : PhoneApplicationPage
     {
         DeviceModel _deviceDetails;
+        DispatcherTimer dispatchTimer = new DispatcherTimer();
 
         DeviceModel DeviceDetails
         {
@@ -35,18 +38,23 @@ namespace SriToolBox.Device
         {
             InitializeComponent();
 
+            //bind data context
             this.DataContext = this.DeviceDetails;
             this.Loaded += new RoutedEventHandler(SystemInfo_Loaded);
+
+            //register events
             DeviceStatus.PowerSourceChanged += new EventHandler(DeviceStatus_PowerSourceChanged);
             DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
-        }        
+
+            //dispatcher timer
+            dispatchTimer.Interval = TimeSpan.FromSeconds(1);
+            dispatchTimer.Tick += new EventHandler(dispatchTimer_Tick);
+            dispatchTimer.Start();
+        }
 
         protected void SystemInfo_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!this.DeviceDetails.IsDataLoaded)
-            {
-                //this.DeviceDetails.LoadSystemData();
-            }
+
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,16 +63,16 @@ namespace SriToolBox.Device
 
             switch (pItem.Name)
             {
-                case "system": 
+                case "system":
                     if (this.DeviceDetails.WPSystem.Count == 0) this.DeviceDetails.LoadSystem();
                     break;
-                case "memory": 
+                case "memory":
                     if (this.DeviceDetails.Memory.Count == 0) this.DeviceDetails.LoadMemory();
                     break;
-                case "network": 
+                case "network":
                     if (this.DeviceDetails.Network.Count == 0) this.DeviceDetails.LoadNetwork();
                     break;
-                case "misc": 
+                case "misc":
                     if (this.DeviceDetails.Miscellaneous.Count == 0) this.DeviceDetails.LoadMiscellaneous();
                     break;
             }
@@ -73,20 +81,32 @@ namespace SriToolBox.Device
         void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
         {
             this.Dispatcher.BeginInvoke(() =>
-            {
-                this.DeviceDetails.Miscellaneous.Clear();
-                this.DeviceDetails.LoadMiscellaneous();               
+            {                
+                this.DeviceDetails.LoadMiscellaneous();
             });
         }
 
         void DeviceNetworkInformation_NetworkAvailabilityChanged(object sender, NetworkNotificationEventArgs e)
         {
             this.Dispatcher.BeginInvoke(() =>
-            {
-                this.DeviceDetails.Network.Clear();
+            {                
                 this.DeviceDetails.LoadNetwork();
             });
-        }        
+        }
+
+        void dispatchTimer_Tick(object sender, EventArgs e)
+        {
+            PivotItem pItem = rootPivot.SelectedItem as PivotItem;
+            if (pItem == null) return;
+
+            switch (pItem.Name)
+            {
+                case "misc":                    
+                    this.DeviceDetails.LoadMiscellaneous();
+                    break;
+            }            
+        }
+
 
     }
 }
