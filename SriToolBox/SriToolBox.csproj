@@ -77,6 +77,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppSettings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Finance\CalcTax.xaml.cs">
+      <DependentUpon>CalcTax.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\CalcTaxSettings.xaml.cs">
+      <DependentUpon>CalcTaxSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DeviceModel.cs" />
     <Compile Include="Device\SystemInfo.xaml.cs">
       <DependentUpon>SystemInfo.xaml</DependentUpon>
@@ -92,6 +98,7 @@
     <Compile Include="ViewModels\BindItemModel.cs" />
     <Compile Include="ViewModels\PanoramaItemModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SettingsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -107,6 +114,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Device\SystemInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Finance\CalcTax.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Finance\CalcTaxSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,63 +14,45 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
+    <!--Build Listbox Item Template-->
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ListBoxItemTemplate">
+            <StackPanel Margin="0,0,0,15">
+                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Name="rootPivot" Title="SriToolBox" SelectionChanged="Pivot_SelectionChanged">
             <!--Pivot item one-->
             <controls:PivotItem Name="system" Header="System">
-                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding WPSystem}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,15">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding WPSystem}" 
+                          ItemTemplate="{StaticResource ListBoxItemTemplate}">
                 </ListBox>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem Name="memory" Header="Memory">
-                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding Memory}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,15">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox  Margin="10,10,0,0" ItemsSource="{Binding Memory}" 
+                          ItemTemplate="{StaticResource ListBoxItemTemplate}">
                 </ListBox>
             </controls:PivotItem>
 
             <!--Pivot item three-->
             <controls:PivotItem Name="network" Header="Network">
-                <ListBox Margin="10,10,0,0" ItemsSource="{Binding Network}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,15">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox Margin="10,10,0,0" ItemsSource="{Binding Network}" 
+                         ItemTemplate="{StaticResource ListBoxItemTemplate}">
                 </ListBox>
             </controls:PivotItem>
 
             <!--Pivot item four-->
             <controls:PivotItem Name="misc" Header="Miscellaneous">
-                <ListBox Margin="10,10,0,0" ItemsSource="{Binding Miscellaneous}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,15">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox Margin="10,10,0,0" ItemsSource="{Binding Miscellaneous}" 
+                         ItemTemplate="{StaticResource ListBoxItemTemplate}">
                 </ListBox>
             </controls:PivotItem>
 

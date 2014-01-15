@@ -48,8 +48,33 @@ namespace SriToolBox
                 case 1:
                     this.NavigationService.Navigate(new Uri("/Device/SystemInfo.xaml", UriKind.Relative));                    
                     break;
+                case 2:
+                    MessageBox.Show("call history");
+                    break;
+                case 3:
+                    MessageBox.Show("message history");
+                    break;
                 case 4:
                     this.NavigationService.Navigate(new Uri("/Device/Multimedia.xaml", UriKind.Relative));  
+                    break;
+                case 5:
+                    MessageBox.Show("data usage");
+                    break;
+                case 6:
+                    MessageBox.Show("apps");
+                    break;
+            }
+        }
+
+        private void Tools_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            PanoramaItem = ((sender as ListBox).SelectedValue as PanoramaItemModel);
+            if (PanoramaItem == null) return;
+
+            switch (PanoramaItem.ID)
+            {
+                case 1:
+                    MessageBox.Show("flashlight");
                     break;
             }
         }
@@ -64,7 +89,8 @@ namespace SriToolBox
                 case 1: 
                     this.NavigationService.Navigate(new Uri("/Finance/CalcInterest.xaml", UriKind.Relative));
                     break;
-                case 2: MessageBox.Show("Calc Tax");
+                case 2:
+                    this.NavigationService.Navigate(new Uri("/Finance/CalcTax.xaml", UriKind.Relative));
                     break;
             }     
         }

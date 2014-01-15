@@ -47,6 +47,14 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
+            <controls:PanoramaItem Header="Tools">
+                <ListBox Margin="0,0,-12,0" 
+                         ItemsSource="{Binding Tools}" 
+                         ItemTemplate="{StaticResource ListBoxItemTemplate}" 
+                         Tap="Tools_Tap" />
+            </controls:PanoramaItem>
+
+            <!--Panorama item three-->
             <controls:PanoramaItem Header="Finance">
                 <ListBox Margin="0,0,-12,0" 
                          ItemsSource="{Binding Finance}" 
@@ -54,7 +62,7 @@
                          Tap="Finance_Tap" />
             </controls:PanoramaItem>
 
-            <!--Panorama item three-->
+            <!--Panorama item four-->
             <controls:PanoramaItem Header="Others">
                 <ListBox Margin="0,0,-12,0" 
                          ItemsSource="{Binding Others}" 

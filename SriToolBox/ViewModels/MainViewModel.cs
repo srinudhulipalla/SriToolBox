@@ -21,6 +21,7 @@ namespace SriToolBox
         public MainViewModel()
         {
             this.Device = new ObservableCollection<PanoramaItemModel>();
+            this.Tools = new ObservableCollection<PanoramaItemModel>();
             this.Finance = new ObservableCollection<PanoramaItemModel>();
             this.Others = new ObservableCollection<PanoramaItemModel>();
         }
@@ -29,6 +30,7 @@ namespace SriToolBox
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<PanoramaItemModel> Device { get; private set; }
+        public ObservableCollection<PanoramaItemModel> Tools { get; private set; }
         public ObservableCollection<PanoramaItemModel> Finance { get; private set; }
         public ObservableCollection<PanoramaItemModel> Others { get; private set; }
 
@@ -71,6 +73,9 @@ namespace SriToolBox
             this.Device.Add(new PanoramaItemModel() { ID = 4, ImagePath = "Images/Device/Multimedia.png", Name = "Multimedia", Description = "get details about your media" });
             this.Device.Add(new PanoramaItemModel() { ID = 5, ImagePath = "Images/Device/DataUsage.png", Name = "Data Usage", Description = "track your data usage" });
             this.Device.Add(new PanoramaItemModel() { ID = 6, ImagePath = "Images/Device/Apps.png", Name = "Apps", Description = "review apps with its size" });
+
+            //Tools data
+            this.Tools.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Device/Apps.png", Name = "Flashlight", Description = "turn on/off device's flashlight" });
 
             //Finance data
             this.Finance.Add(new PanoramaItemModel() { ID = 1, ImagePath = "Images/Finance/CalcInterest.png", Name = "Calc Interest", Description = "calculate the interest to be earn" });
