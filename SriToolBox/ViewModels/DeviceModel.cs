@@ -19,6 +19,7 @@ using Microsoft.Devices;
 using Microsoft.Devices.Radio;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using System.IO.IsolatedStorage;
 
 namespace SriToolBox.ViewModels
 {
@@ -28,6 +29,10 @@ namespace SriToolBox.ViewModels
         public ObservableCollection<BindItemModel> WPSystem { get; private set; }
         public ObservableCollection<BindItemModel> Memory { get; private set; }
         public ObservableCollection<BindItemModel> Network { get; private set; }
+        public ObservableCollection<BindItemModel> Power { get; private set; }
+        public ObservableCollection<BindItemModel> Camera { get; private set; }
+        public ObservableCollection<BindItemModel> Radio { get; private set; }
+        public ObservableCollection<BindItemModel> Others { get; private set; }
         public ObservableCollection<BindItemModel> Miscellaneous { get; private set; }
 
         //Multimedia
@@ -39,6 +44,10 @@ namespace SriToolBox.ViewModels
             this.WPSystem = new ObservableCollection<BindItemModel>();
             this.Memory = new ObservableCollection<BindItemModel>();
             this.Network = new ObservableCollection<BindItemModel>();
+            this.Power = new ObservableCollection<BindItemModel>();
+            this.Camera = new ObservableCollection<BindItemModel>();
+            this.Radio = new ObservableCollection<BindItemModel>();
+            this.Others = new ObservableCollection<BindItemModel>();
             this.Miscellaneous = new ObservableCollection<BindItemModel>();
             this.Multimedia = new ObservableCollection<BindItemModel>();
             this.Player = new ObservableCollection<BindItemModel>();
@@ -98,19 +107,18 @@ namespace SriToolBox.ViewModels
             this.Memory.Clear();
             this.Memory.Add(new BindItemModel() { Title = "Total Memory", Content = Common.GetDiskSize(DeviceStatus.DeviceTotalMemory) });
 
-            string ss = Microsoft.Devices.Environment.DeviceType.ToString();
-            //ss = Microsoft.Devices.MediaHistory.Instance.NowPlaying.Title;
-            bool b = Microsoft.Devices.PhotoCamera.IsCameraTypeSupported(Microsoft.Devices.CameraType.FrontFacing);
-            ss = Microsoft.Devices.Radio.FMRadio.Instance.PowerMode.ToString();
-            ss = Microsoft.Devices.Radio.FMRadio.Instance.CurrentRegion.ToString();
+            using (var file = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                string freeSpace = Common.GetDiskSize(file.AvailableFreeSpace);
+                this.Memory.Add(new BindItemModel() { Title = "Available Free Space", Content = freeSpace });
+            }
 
-            ss = Microsoft.Phone.Info.DeviceStatus.PowerSource.ToString();
-            b = Microsoft.Phone.Info.MediaCapabilities.IsMultiResolutionVideoSupported;
-            //ss = Microsoft.Phone.Info.UserExtendedProperties.GetValue("ANID").ToString();
-            //Microsoft.Phone.UserData.Account a = new Microsoft.Phone.UserData.Account();
-            //ss = a.Kind.ToString();
-            //ss = a.Name;
-            Microsoft.Phone.UserData.Contacts cc = new Microsoft.Phone.UserData.Contacts();
+            
+
+
+            //System.Device.Location.GeoCoordinate g = new System.Device.Location.GeoCoordinate();
+            
+            //Microsoft.Phone.UserData.Contacts cc = new Microsoft.Phone.UserData.Contacts();
             
             //Geolocator
         }
@@ -150,28 +158,55 @@ namespace SriToolBox.ViewModels
 
         public void LoadMiscellaneous()
         {
-            this.Miscellaneous.Clear();
-            string powerSource = DeviceStatus.PowerSource == PowerSource.Battery ? "Running on Battery" : "Battery is charging";
-            string frontCamera = PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) ? "Yes" : "No";
-            string primaryCamera = PhotoCamera.IsCameraTypeSupported(CameraType.Primary) ? "Yes" : "No";            
+            LoadPower();
+            LoadCamera();
+            LoadRadio();
+            LoadOthers();
+        }
 
-            this.Miscellaneous.Add(new BindItemModel() { Title = "Power Status", Content = powerSource });
-            this.Miscellaneous.Add(new BindItemModel() { Title = "Front Camera", Content = frontCamera });
-            this.Miscellaneous.Add(new BindItemModel() { Title = "Primary Camera", Content = primaryCamera });
+        public void LoadPower()
+        {
+            this.Power.Clear();
+
+            string powerSource = DeviceStatus.PowerSource == PowerSource.Battery ? "Running on Battery" : "Battery is charging";
+            this.Power.Add(new BindItemModel() { Title = "Power Status", Content = powerSource });
+        }
+
+        public void LoadCamera()
+        {
+            this.Camera.Clear();
+
+            string frontCamera = PhotoCamera.IsCameraTypeSupported(CameraType.FrontFacing) ? "Yes" : "No";
+            string primaryCamera = PhotoCamera.IsCameraTypeSupported(CameraType.Primary) ? "Yes" : "No";
+
+            this.Camera.Add(new BindItemModel() { Title = "Front Camera", Content = frontCamera });
+            this.Camera.Add(new BindItemModel() { Title = "Primary Camera", Content = primaryCamera });
+        }
+
+        public void LoadRadio()
+        {
+            this.Radio.Clear();
 
             try
             {
                 string radioRegion = FMRadio.Instance.CurrentRegion.ToString();
-                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "Yes" });
-                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Region", Content = radioRegion });
+                this.Radio.Add(new BindItemModel() { Title = "Radio Support", Content = "Yes" });
+                this.Radio.Add(new BindItemModel() { Title = "Radio Region", Content = radioRegion });
             }
             catch (RadioDisabledException)
             {
-                this.Miscellaneous.Add(new BindItemModel() { Title = "Radio Support", Content = "No" });
+                this.Radio.Add(new BindItemModel() { Title = "Radio Support", Content = "No" });
             }
+        }
 
-            this.Miscellaneous.Add(new BindItemModel() { Title = "Bootup Time", Content = Common.GetTimeFromTicks(System.Environment.TickCount) });
-        }        
+        public void LoadOthers()
+        {
+            this.Others.Clear();
+
+            this.Others.Add(new BindItemModel() { Title = "Bootup Time", Content = Common.GetTimeFromTicks(System.Environment.TickCount) });
+            this.Others.Add(new BindItemModel() { Title = "Resolution", Content = Application.Current.Host.Content.ActualWidth + " x " + Application.Current.Host.Content.ActualHeight });
+        }
+        
 
         void LoadMedia()
         {

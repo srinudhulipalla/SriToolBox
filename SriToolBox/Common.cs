@@ -30,7 +30,7 @@ namespace SriToolBox
             string[] size = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
             int i = 0;
 
-            while (Math.Round(length / 1024) >= 1)
+            while (length / 1024 >= 1)
             {
                 length /= 1024;
                 i++;

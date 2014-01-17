@@ -81,8 +81,8 @@ namespace SriToolBox.Device
         void DeviceStatus_PowerSourceChanged(object sender, EventArgs e)
         {
             this.Dispatcher.BeginInvoke(() =>
-            {                
-                this.DeviceDetails.LoadMiscellaneous();
+            {
+                this.DeviceDetails.LoadPower();
             });
         }
 
@@ -101,8 +101,8 @@ namespace SriToolBox.Device
 
             switch (pItem.Name)
             {
-                case "misc":                    
-                    this.DeviceDetails.LoadMiscellaneous();
+                case "misc":
+                    this.DeviceDetails.LoadOthers();
                     break;
             }            
         }

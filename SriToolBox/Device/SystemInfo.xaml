@@ -51,9 +51,66 @@
 
             <!--Pivot item four-->
             <controls:PivotItem Name="misc" Header="Miscellaneous">
-                <ListBox Margin="10,10,0,0" ItemsSource="{Binding Miscellaneous}" 
-                         ItemTemplate="{StaticResource ListBoxItemTemplate}">
-                </ListBox>
+                <ScrollViewer>
+                    <StackPanel>
+                        <!--Power-->
+                        <Grid Width="450" Height="40" HorizontalAlignment="Center">
+                            <TextBlock Text=" Power" FontStyle="Normal" FontStretch="Normal" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Margin="0,0,0,8"><TextBlock.Foreground><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><GradientStop Color="Black" Offset="0" /><GradientStop Color="#FFB71515" Offset="1" /></LinearGradientBrush></TextBlock.Foreground></TextBlock>
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF30CEBF" Offset="0" />
+                                    <GradientStop Color="Black" Offset="1" />
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
+                        <ListBox Margin="10,10,0,0" ItemsSource="{Binding Power}" 
+                            ItemTemplate="{StaticResource ListBoxItemTemplate}"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        </ListBox>
+                        <!--Camera-->
+                        <Grid Width="450" Height="40" HorizontalAlignment="Center">
+                            <TextBlock Text=" Camera" FontStyle="Normal" FontStretch="Normal" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Margin="0,0,0,8"><TextBlock.Foreground><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><GradientStop Color="Black" Offset="0" /><GradientStop Color="#FFB71515" Offset="1" /></LinearGradientBrush></TextBlock.Foreground></TextBlock>
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF30CEBF" Offset="0" />
+                                    <GradientStop Color="Black" Offset="1" />
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
+                        <ListBox Margin="10,10,0,0" ItemsSource="{Binding Camera}" 
+                            ItemTemplate="{StaticResource ListBoxItemTemplate}"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        </ListBox>
+                        <!--Radio-->
+                        <Grid Width="450" Height="40" HorizontalAlignment="Center">
+                            <TextBlock Text=" Radio" FontStyle="Normal" FontStretch="Normal" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Margin="0,0,0,8"><TextBlock.Foreground><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><GradientStop Color="Black" Offset="0" /><GradientStop Color="#FFB71515" Offset="1" /></LinearGradientBrush></TextBlock.Foreground></TextBlock>
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF30CEBF" Offset="0" />
+                                    <GradientStop Color="Black" Offset="1" />
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
+                        <ListBox Margin="10,10,0,0" ItemsSource="{Binding Radio}" 
+                            ItemTemplate="{StaticResource ListBoxItemTemplate}"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        </ListBox>
+                        <!--Others-->
+                        <Grid Width="450" Height="40" HorizontalAlignment="Center">
+                            <TextBlock Text=" Others" FontStyle="Normal" FontStretch="Normal" FontWeight="Bold" VerticalAlignment="Center" FontSize="24" Margin="0,0,0,8"><TextBlock.Foreground><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><GradientStop Color="Black" Offset="0" /><GradientStop Color="#FFB71515" Offset="1" /></LinearGradientBrush></TextBlock.Foreground></TextBlock>
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF30CEBF" Offset="0" />
+                                    <GradientStop Color="Black" Offset="1" />
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
+                        <ListBox Margin="10,10,0,0" ItemsSource="{Binding Others}" 
+                            ItemTemplate="{StaticResource ListBoxItemTemplate}"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
             </controls:PivotItem>
 
         </controls:Pivot>

@@ -14,7 +14,7 @@ namespace SriToolBox.ViewModels
 {
     public class CalcTaxSettings
     {
-        IsolatedStorageSettings taxSettings;
+        public IsolatedStorageSettings taxSettings;
 
         public double TaxExemption
         {
@@ -33,10 +33,17 @@ namespace SriToolBox.ViewModels
 
         public CalcTaxSettings()
         {
-            taxSettings = IsolatedStorageSettings.ApplicationSettings;
+            try
+            {
+                taxSettings = IsolatedStorageSettings.ApplicationSettings;
+            }
+            catch
+            {
+                
+            }
         }
 
-        bool SetValue(string key, object value)
+        public bool SetValue(string key, object value)
         {
             bool isValueSet = false;
 
@@ -57,7 +64,7 @@ namespace SriToolBox.ViewModels
             return isValueSet;
         }
 
-        ValueType GetValue<ValueType>(string key, ValueType defaultValue)
+        public ValueType GetValue<ValueType>(string key, ValueType defaultValue)
         {
             ValueType returnValue;
 
@@ -73,7 +80,7 @@ namespace SriToolBox.ViewModels
             return returnValue;
         }
 
-        void Save()
+        public void Save()
         {
             taxSettings.Save();
         }
